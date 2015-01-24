@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:hadoop="http://www.springframework.org/schema/hadoop"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
+		http://www.springframework.org/schema/hadoop http://www.springframework.org/schema/hadoop/spring-hadoop.xsd">
+
+	<!-- TODO: instantiate a property-placeholder with values from lab5.properties -->
+
+	<!-- instantiate a fresh hadoop configuration -->
+
+	<!-- instantiate a hadoop job -->
+	<!-- properties to set are id, jar-by-class, mapper, reducer, input-path, input-format, output-path and output-format -->
+	
+	<!-- instantiate a com.c4soft.util.hadoop.avro.AvroJobInitializingBean -->
+	<!-- this is a special bean that finishes job configuration for avro input/output -->
+	<!-- you have to provide a reference to your hadoop job as constructor-arg and specify any avro key or value (input key, map output value and output key in our case) -->
+	
+	<!-- instantiate a job-runner, provinding id, pre-action, job-ref and run-at-startup -->
+	
+	<!-- script to call as pre-action -->
+	<hadoop:script id="cleanup-script" language="javascript">
+		fs['delete']("${path.bills.byproductid}", true)
+	</hadoop:script>
+	
+</beans>
