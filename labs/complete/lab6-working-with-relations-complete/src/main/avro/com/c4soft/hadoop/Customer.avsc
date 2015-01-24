@@ -1,0 +1,11 @@
+{
+"namespace": "com.c4soft.hadoop.avro",
+"type": "record",
+"name": "SerializableCustomer",
+"fields": [
+	{"name": "id", "type": "long"},
+	{"name": "firstName",  "type": "string"},
+	{"name": "lastName",  "type": "string"},
+	{"name": "postcode",  "type": "string"}
+]
+}

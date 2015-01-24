@@ -1,0 +1,36 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+
+	<modelVersion>4.0.0</modelVersion>
+	
+	<parent>
+		<groupId>com.c4soft.hadoop2</groupId>
+		<artifactId>labs</artifactId>
+		<version>1.0.0</version>
+		<relativePath>../pom.xml</relativePath>
+	</parent>
+	<groupId>com.c4soft.hadoop2.labs</groupId>
+	<artifactId>complete</artifactId>
+	<packaging>pom</packaging>
+
+	<modules>
+		<module>lab1-hello-hadoop-world-complete</module>
+		<module>lab2-unit-testing-hadoop-jobs-complete</module>
+		<module>lab3-jobconf-cache-etc-complete</module>
+		<module>lab4-spring-data-hadoop-complete</module>
+		<module>lab5-avro-complete</module>
+		<module>lab6-working-with-relations-complete</module>
+		<module>lab7-pig-complete</module>
+	</modules>
+	
+	<dependencies>
+		<dependency>
+			<groupId>com.c4soft.hadoop2</groupId>
+			<artifactId>test-util</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>com.c4soft.hadoop2.labs</groupId>
+			<artifactId>store-domain</artifactId>
+		</dependency>
+	</dependencies>
+</project>

@@ -1,0 +1,19 @@
+{
+"namespace": "com.c4soft.hadoop.avro",
+"type": "record",
+"name": "SerializableProduct",
+"fields": [
+	{"name": "id", "type": "long"},
+	{"name": "label",  "type": "string"},
+	{"name": "price",  "type": "double"},
+	{"name": "category",  "type": {
+		"type": "record",
+		"name": "SerializableCategory",
+		"fields": [
+			{"name": "id",  "type": "long"},
+			{"name": "label",  "type": "string"}
+		]
+		}
+	}
+]
+}

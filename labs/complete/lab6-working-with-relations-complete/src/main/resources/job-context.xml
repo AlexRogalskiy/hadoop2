@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:hadoop="http://www.springframework.org/schema/hadoop"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
+		http://www.springframework.org/schema/hadoop http://www.springframework.org/schema/hadoop/spring-hadoop.xsd">
+
+	<context:property-placeholder location="lab.properties"/>
+
+	<hadoop:configuration properties-location="hadoop.properties" file-system-uri="${fs.uri}">
+	</hadoop:configuration>
+
+	<hadoop:job
+		id="bill2PostcodeCategoryTurnoverTmpJob"
+		jar-by-class="com.c4soft.hadoop.Bill2PostcodeCategoryTurnoverTmpMapper"
+		mapper="com.c4soft.hadoop.Bill2PostcodeCategoryTurnoverTmpMapper"
+		number-reducers="0"
+		input-path="${path.bills}"
+		input-format="org.apache.avro.mapreduce.AvroKeyInputFormat"
+		output-path="${path.postcodecategoryturnover.interm.bills}"
+		output-format="org.apache.avro.mapreduce.AvroKeyOutputFormat">
+	</hadoop:job>
+	
+	<bean class="com.c4soft.util.hadoop.avro.AvroJobInitializingBean">
+		<constructor-arg ref="bill2PostcodeCategoryTurnoverTmpJob"/>
+		<property name="avroInputKey" value="com.c4soft.hadoop.avro.SerializableBill" />
+		<property name="avroMapOutputKey" value="com.c4soft.hadoop.avro.PostcodeCategoryTurnoverTmp" />
+		<property name="avroOutputKey" value="com.c4soft.hadoop.avro.PostcodeCategoryTurnoverTmp" />
+	</bean>
+
+	<hadoop:job
+		id="customer2PostcodeCategoryTurnoverTmpJob"
+		jar-by-class="com.c4soft.hadoop.Customer2PostcodeCategoryTurnoverTmpMapper"
+		mapper="com.c4soft.hadoop.Customer2PostcodeCategoryTurnoverTmpMapper"
+		number-reducers="0"
+		input-path="${path.customers}"
+		input-format="org.apache.avro.mapreduce.AvroKeyInputFormat"
+		output-path="${path.postcodecategoryturnover.interm.customers}"
+		output-format="org.apache.avro.mapreduce.AvroKeyOutputFormat">
+	</hadoop:job>
+	
+	<bean class="com.c4soft.util.hadoop.avro.AvroJobInitializingBean">
+		<constructor-arg ref="customer2PostcodeCategoryTurnoverTmpJob"/>
+		<property name="avroInputKey" value="com.c4soft.hadoop.avro.SerializableCustomer" />
+		<property name="avroMapOutputKey" value="com.c4soft.hadoop.avro.PostcodeCategoryTurnoverTmp" />
+		<property name="avroOutputKey" value="com.c4soft.hadoop.avro.PostcodeCategoryTurnoverTmp" />
+	</bean>
+
+	<hadoop:job
+		id="product2PostcodeCategoryTurnoverTmpJob"
+		jar-by-class="com.c4soft.hadoop.Product2PostcodeCategoryTurnoverTmpMapper"
+		mapper="com.c4soft.hadoop.Product2PostcodeCategoryTurnoverTmpMapper"
+		number-reducers="0"
+		input-path="${path.products}"
+		input-format="org.apache.avro.mapreduce.AvroKeyInputFormat"
+		output-path="${path.postcodecategoryturnover.interm.products}"
+		output-format="org.apache.avro.mapreduce.AvroKeyOutputFormat">
+	</hadoop:job>
+	
+	<bean class="com.c4soft.util.hadoop.avro.AvroJobInitializingBean">
+		<constructor-arg ref="product2PostcodeCategoryTurnoverTmpJob"/>
+		<property name="avroInputKey" value="com.c4soft.hadoop.avro.SerializableProduct" />
+		<property name="avroMapOutputKey" value="com.c4soft.hadoop.avro.PostcodeCategoryTurnoverTmp" />
+		<property name="avroOutputKey" value="com.c4soft.hadoop.avro.PostcodeCategoryTurnoverTmp" />
+	</bean>
+
+	<hadoop:job
+		id="mergeCustomerAndBillDataJob"
+		jar-by-class="com.c4soft.hadoop.PostcodeCategoryTurnoverTmpByCustomerIdMapper"
+		mapper="com.c4soft.hadoop.PostcodeCategoryTurnoverTmpByCustomerIdMapper"
+		reducer="com.c4soft.hadoop.PostcodeCategoryTurnoverTmpByCustomerIdReducer"
+		input-path="${path.postcodecategoryturnover.interm.customers},${path.postcodecategoryturnover.interm.bills}"
+		input-format="org.apache.avro.mapreduce.AvroKeyInputFormat"
+		output-path="${path.postcodecategoryturnover.interm.bycustomerid}"
+		output-format="org.apache.avro.mapreduce.AvroKeyOutputFormat">
+	</hadoop:job>
+	
+	<bean class="com.c4soft.util.hadoop.avro.AvroJobInitializingBean">
+		<constructor-arg ref="mergeCustomerAndBillDataJob"/>
+		<property name="avroInputKey" value="com.c4soft.hadoop.avro.PostcodeCategoryTurnoverTmp" />
+		<property name="avroMapOutputValue" value="com.c4soft.hadoop.avro.PostcodeCategoryTurnoverTmp" />
+		<property name="avroOutputKey" value="com.c4soft.hadoop.avro.PostcodeCategoryTurnoverTmp" />
+	</bean>
+
+	<hadoop:job
+		id="addProductDataJob"
+		jar-by-class="com.c4soft.hadoop.PostcodeCategoryTurnoverTmpByProductIdMapper"
+		mapper="com.c4soft.hadoop.PostcodeCategoryTurnoverTmpByProductIdMapper"
+		reducer="com.c4soft.hadoop.PostcodeCategoryTurnoverTmpByProductIdReducer"
+		input-path="${path.postcodecategoryturnover.interm.products},${path.postcodecategoryturnover.interm.bycustomerid}"
+		input-format="org.apache.avro.mapreduce.AvroKeyInputFormat"
+		output-path="${path.postcodecategoryturnover.interm.byproductid}"
+		output-format="org.apache.avro.mapreduce.AvroKeyOutputFormat">
+	</hadoop:job>
+	
+	<bean class="com.c4soft.util.hadoop.avro.AvroJobInitializingBean">
+		<constructor-arg ref="addProductDataJob"/>
+		<property name="avroInputKey" value="com.c4soft.hadoop.avro.PostcodeCategoryTurnoverTmp" />
+		<property name="avroMapOutputValue" value="com.c4soft.hadoop.avro.PostcodeCategoryTurnoverTmp" />
+		<property name="avroOutputKey" value="com.c4soft.hadoop.avro.PostcodeCategoryTurnoverTmp" />
+	</bean>
+
+	<hadoop:job
+		id="postcodeCategoryTurnoverComputeJob"
+		jar-by-class="com.c4soft.hadoop.PostcodeCategoryTurnoverTmpByPostcodeCategoryMapper"
+		mapper="com.c4soft.hadoop.PostcodeCategoryTurnoverTmpByPostcodeCategoryMapper"
+		reducer="com.c4soft.hadoop.PostcodeCategoryTurnoverReducer"
+		input-path="${path.postcodecategoryturnover.interm.byproductid}"
+		input-format="org.apache.avro.mapreduce.AvroKeyInputFormat"
+		output-path="${path.postcodecategoryturnover}"
+		output-format="org.apache.avro.mapreduce.AvroKeyOutputFormat">
+	</hadoop:job>
+	
+	<bean class="com.c4soft.util.hadoop.avro.AvroJobInitializingBean">
+		<constructor-arg ref="postcodeCategoryTurnoverComputeJob"/>
+		<property name="avroInputKey" value="com.c4soft.hadoop.avro.PostcodeCategoryTurnoverTmp" />
+		<property name="avroMapOutputValue" value="com.c4soft.hadoop.avro.PostcodeCategoryTurnover" />
+		<property name="avroOutputKey" value="com.c4soft.hadoop.avro.PostcodeCategoryTurnover" />
+	</bean>
+	
+	<hadoop:job-runner id="bill2PostcodeCategoryTurnoverTmpJob-runner" pre-action="cleanup-script" job-ref="bill2PostcodeCategoryTurnoverTmpJob" run-at-startup="true"/>
+	<hadoop:job-runner id="customer2PostcodeCategoryTurnoverTmpJob-runner" job-ref="customer2PostcodeCategoryTurnoverTmpJob" run-at-startup="true"/>
+	<hadoop:job-runner id="product2PostcodeCategoryTurnoverTmpJob-runner" job-ref="product2PostcodeCategoryTurnoverTmpJob" run-at-startup="true"/>
+	<hadoop:job-runner id="mergeCustomerAndBillDataJob-runner" job-ref="mergeCustomerAndBillDataJob" run-at-startup="true"/>
+	<hadoop:job-runner id="addProductDataJob-runner" job-ref="addProductDataJob" run-at-startup="true"/>
+	<hadoop:job-runner id="postcodeCategoryTurnoverComputeJob-runner" job-ref="postcodeCategoryTurnoverComputeJob" run-at-startup="true"/>
+	
+	<hadoop:script id="cleanup-script" language="javascript">
+		fs['delete']("${path.postcodecategoryturnover.interm.bills}", true)
+		fs['delete']("${path.postcodecategoryturnover.interm.customers}", true)
+		fs['delete']("${path.postcodecategoryturnover.interm.products}", true)
+		fs['delete']("${path.postcodecategoryturnover.interm.bycustomerid}", true)
+		fs['delete']("${path.postcodecategoryturnover.interm.byproductid}", true)
+		fs['delete']("${path.postcodecategoryturnover}", true)
+	</hadoop:script>
+	
+</beans>

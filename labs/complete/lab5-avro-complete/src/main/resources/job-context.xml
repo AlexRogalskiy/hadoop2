@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:hadoop="http://www.springframework.org/schema/hadoop"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
+		http://www.springframework.org/schema/hadoop http://www.springframework.org/schema/hadoop/spring-hadoop.xsd">
+
+	<context:property-placeholder location="lab.properties"/>
+
+	<hadoop:configuration properties-location="hadoop.properties" file-system-uri="${fs.uri}">
+	</hadoop:configuration>
+
+	<hadoop:job
+		id="billsByProductIdIndexer"
+		jar-by-class="com.c4soft.hadoop.BillByProductIdAvroMapper"
+		mapper="com.c4soft.hadoop.BillByProductIdAvroMapper"
+		reducer="com.c4soft.hadoop.BillByLongAvroReducer"
+		input-path="${path.bills}"
+		input-format="org.apache.avro.mapreduce.AvroKeyInputFormat"
+		output-path="${path.bills.byproductid}"
+		output-format="org.apache.avro.mapreduce.AvroKeyOutputFormat">
+	</hadoop:job>
+	
+	<bean class="com.c4soft.util.hadoop.avro.AvroJobInitializingBean">
+		<constructor-arg ref="billsByProductIdIndexer"/>
+		<property name="avroInputKey" value="com.c4soft.hadoop.avro.SerializableBill" />
+		<property name="avroMapOutputValue" value="com.c4soft.hadoop.avro.SerializableBill" />
+		<property name="avroOutputKey" value="com.c4soft.hadoop.avro.LongIndexedSerializableBill" />
+	</bean>
+	
+	<hadoop:job-runner id="billsByProductIdIndexer-runner" pre-action="cleanup-script" job-ref="billsByProductIdIndexer" run-at-startup="true"/>
+	
+	<hadoop:script id="cleanup-script" language="javascript">
+		fs['delete']("${path.bills.byproductid}", true)
+	</hadoop:script>
+	
+</beans>

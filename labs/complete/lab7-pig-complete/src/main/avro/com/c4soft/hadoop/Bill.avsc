@@ -1,0 +1,19 @@
+{
+"namespace": "com.c4soft.hadoop.avro",
+"type": "record",
+"name": "LongIndexedSerializableBill",
+"fields": [
+	{"name": "idx", "type": "long"},
+	{"name": "bills",  "type": {"type": "array", "items": {
+		"type": "record",
+		"name": "SerializableBill",
+		"fields": [
+			{"name": "id",  "type": "long"},
+			{"name": "customerId", "type": "long"},
+			{"name": "timestamp", "type": "long"},
+			{"name": "productIds", "type": {"type": "array", "items": "long"}}
+		]
+		}
+	}}
+]
+}

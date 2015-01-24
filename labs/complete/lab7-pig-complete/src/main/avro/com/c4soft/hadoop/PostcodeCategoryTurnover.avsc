@@ -1,0 +1,10 @@
+{
+"namespace": "com.c4soft.hadoop.avro",
+"type": "record",
+"name": "PostcodeCategoryTurnover",
+"fields": [
+	{"name": "postcode",  "type": "string"},
+	{"name": "categoryLabel",  "type": "string"},
+	{"name": "amount",  "type": "double"}
+]
+}

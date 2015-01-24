@@ -1,0 +1,12 @@
+{
+"namespace": "com.c4soft.hadoop.avro",
+"type": "record",
+"name": "PostcodeCategoryTurnoverTmp",
+"fields": [
+	{"name": "clientId",  "type": ["long", "null"]},
+	{"name": "postcode",  "type": ["string", "null"]},
+	{"name": "productId",  "type": ["long", "null"]},
+	{"name": "categoryLabel",  "type": ["string", "null"]},
+	{"name": "amount",  "type": "double", "default": 0.0}
+]
+}
