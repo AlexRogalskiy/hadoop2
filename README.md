@@ -25,3 +25,11 @@ Hadoop jobs are a solution to process huge **collections of records**. Each job 
 * reduce: you are provided with an iterator on all the values with a given key and may associate any number of key/value pairs to it (usually one single value with same output key as you got as an input). You do this with a Reducer implementation.
 
 So Hadoop dev life is easy: compute keys from values and then compute new values from collections of records with same key. Of course life can get a slightly harder when it comes to compute what your client asks for with those two simple operations :bowtie:
+
+## Business domain
+All labs are manipulating very basic large distribution concepts:
+* we sell products
+* products are grouped by category
+* each sell is materialized through a bill paid by a client
+We will compute statistics about sales and customers
+![UML class diagram](/labs/store-domain/domain.png?raw=true)
