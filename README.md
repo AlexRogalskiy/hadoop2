@@ -10,7 +10,7 @@ Feel free to report if it's of any use to you :smirk:
 
 ## Prerequisites
 * JDK 1.8
-* Hadoop 2 needs to be installed and HADOOP_HOME set for unit tests to run correctly. Linux / Mac OS users should refer to ![hadoop project web site](http://hadoop.apache.org "hadoop project web site") for download and setup instructions. Windows users might visit the ![releases](https://github.com/ch4mpy/hadoop2/releases "releases") to get binaries and refer to ![hadoop wiki](https://wiki.apache.org/hadoop/Hadoop2OnWindows "hadoop wiki") for instructions.
+* Hadoop 2 needs to be installed and HADOOP_HOME set for unit tests to run correctly. Linux / Mac OS users should refer to http://hadoop.apache.org "hadoop project web site" for download and setup instructions. Windows users might visit the https://github.com/ch4mpy/hadoop2/releases "releases" to get binaries and refer to https://wiki.apache.org/hadoop/Hadoop2OnWindows "hadoop wiki" for instructions.
 * Git to clone this repo.
 * Minimum understanding of map/reduce.
 * Provide a small lib to ease jobs unit testing (and initially to work around a bug, now corrected, on Windows).
