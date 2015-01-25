@@ -31,5 +31,7 @@ All labs are manipulating very basic large distribution concepts:
 * we sell products
 * products are grouped by category
 * each sell is materialized through a bill paid by a client
-We will compute statistics about sales and customers
+
+We will compute statistics about sales and customers.
+
 ![UML class diagram](/labs/store-domain/domain.png?raw=true)
