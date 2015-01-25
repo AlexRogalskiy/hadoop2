@@ -10,10 +10,10 @@ Feel free to report if it's of any use to you :smirk:
 
 ## Prerequisites
 * JDK 1.8
-* Hadoop 2 needs to be installed and HADOOP_HOME set for unit tests to run correctly. Please refer to http://hadoop.apache.org/ for download and setup instructions.
+* Hadoop 2 needs to be installed and HADOOP_HOME set for unit tests to run correctly. Linux / Mac OS users should refer to ![hadoop project web site](http://hadoop.apache.org "hadoop project web site") for download and setup instructions. Windows users might visit the ![releases](https://github.com/ch4mpy/hadoop2/releases "releases") to get binaries and refer to ![hadoop wiki](https://wiki.apache.org/hadoop/Hadoop2OnWindows "hadoop wiki") for instructions.
 * Git to clone this repo.
 * Minimum understanding of map/reduce.
-* Provide a small lib to ease jobs unit testing (and work around a bug, now corrected, on Windows)
+* Provide a small lib to ease jobs unit testing (and initially to work around a bug, now corrected, on Windows).
 
 ## Eclipse setup
 If you use Eclipse, you need to "import -> maven -> existing maven project". Further configuration (such as adding specific source folders to build path) will be provided in some labs instructions.
@@ -33,3 +33,8 @@ All labs are manipulating very basic large distribution concepts:
 * each sell is materialized through a bill paid by a client
 We will compute statistics about sales and customers
 ![UML class diagram](/labs/store-domain/domain.png?raw=true)
+
+## Get your hands on
+The labs under /labs/todo/ are waiting for you. 
+
+Each lab comes with a README with detailed instructions to help you find your way to the solutions provided under /labs/complete.
