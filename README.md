@@ -6,13 +6,14 @@ The projects in this repo aimed at a few targets:
 * Avoid dependencies headakes you invariably get when starting with hadoop (hadoop 1 / 2 incompatible APIs can put a mess in this domain).
 * Introduce progressively different libraries, frameworks, practices and language I found usefull when writing hadoop jobs.
 
-Feel free to report if it's of any use to you ;)
+Feel free to report if it's of any use to you :smirk:
 
 ## Prerequisites
 * JDK 1.8
 * Hadoop 2 needs to be installed and HADOOP_HOME set for unit tests to run correctly. Please refer to http://hadoop.apache.org/ for download and setup instructions.
 * Git to clone this repo.
 * Minimum understanding of map/reduce.
+* Provide a small lib to ease jobs unit testing (and work around a bug, now corrected, on Windows)
 
 ## Eclipse setup
 If you use Eclipse, you need to "import -> maven -> existing maven project". Further configuration (such as adding specific source folders to build path) will be provided in some labs instructions.
@@ -23,4 +24,4 @@ Hadoop jobs are a solution to process huge **collections of records**. Each job 
 * shuffle: all values that where mapped with the same key are collected in a single iterator. This is done automatically by the framework.
 * reduce: you are provided with an iterator on all the values with a given key and may associate any number of key/value pairs to it (usually one single value with same output key as you got as an input). You do this with a Reducer implementation.
 
-So Hadoop dev life is easy: compute keys from values and then compute new values from collections of records with same key. Of course life can get a slightly harder when it comes to compute what your client asks for with those two simple operations :D
+So Hadoop dev life is easy: compute keys from values and then compute new values from collections of records with same key. Of course life can get a slightly harder when it comes to compute what your client asks for with those two simple operations :bowtie:
