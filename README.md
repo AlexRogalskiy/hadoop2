@@ -5,6 +5,7 @@ The projects in this repo aimed at a few targets:
 * Help at real-life projects setup (pom hierarchy and projects granularity).
 * Avoid dependencies headakes you invariably get when starting with hadoop (hadoop 1 / 2 incompatible APIs can put a mess in this domain).
 * Introduce progressively different libraries, frameworks, practices and language I found usefull when writing hadoop jobs.
+* Provide a small lib to ease jobs unit testing (and initially to work around a bug, now corrected, on Windows).
 
 Feel free to report if it's of any use to you :smirk:
 
@@ -13,7 +14,6 @@ Feel free to report if it's of any use to you :smirk:
 * Hadoop 2 needs to be installed and HADOOP_HOME set for unit tests to run correctly. Linux / Mac OS users should refer to http://hadoop.apache.org for download and setup instructions. Windows users might visit https://github.com/ch4mpy/hadoop2/releases to get binaries and refer to https://wiki.apache.org/hadoop/Hadoop2OnWindows for instructions.
 * Git to clone this repo.
 * Minimum understanding of map/reduce.
-* Provide a small lib to ease jobs unit testing (and initially to work around a bug, now corrected, on Windows).
 
 ## Eclipse setup
 If you use Eclipse, you need to "import -> maven -> existing maven project". Further configuration (such as adding specific source folders to build path) will be provided in some labs instructions.
